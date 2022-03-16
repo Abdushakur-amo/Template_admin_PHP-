@@ -3,7 +3,6 @@
 	use application\core\Controller;
 	use Captcha;
 	class AccountController extends Controller {
-
 		# Start Login ----------------------------------------------------------------
 		public function loginAction() {
 			if( isset($_SESSION['authorize'])  ) exit(header('Location: /index'));
@@ -173,7 +172,6 @@
 			];
 			$this->view->render(' dialog', $vars);
 		}// End Dialog
-
 		# Start Logout ----------------------------------------------------------------
 		public function logoutAction() {
 			setcookie('User', '', strtotime('-30 days'));
@@ -182,5 +180,4 @@
     	session_unset();
 			$this->view->redirect('/account/login');
 		}// End Logout
-
 	} # End class

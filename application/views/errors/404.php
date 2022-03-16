@@ -1,67 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Страница 404</title>
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/assets/images/logo/favicon.png">
-
-    <!-- page css -->
-
-    <!-- Core css -->
-    <link href="/assets/css/app.min.css" rel="stylesheet">
-
+    <title>Страница <?=$code?></title>
+    <link rel="shortcut icon" href="/favicon.ico">
 </head>
-
 <body>
-    <div class="app">
-        <div class="container-fluid">
-            <div class="d-flex full-height p-v-20 flex-column justify-content-between">
-                <div class="d-none d-md-flex p-h-40">
-                    <img src="/assets/images/logo/logo.png" alt="">
-                </div>
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="p-v-30">
-                                <h1 class="font-weight-semibold display-1 text-primary lh-1-2">404</h1>
-                                <h2 class="font-weight-light font-size-30">Упсс! Не удается получить доступ к страница</h2>
-                                <p class="lead m-b-30">Error url not found! </p>
-                                <a href="/index" class="btn btn-primary btn-tone">Главни страница</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 m-l-auto">
-                            <img class="img-fluid" src="/assets/images/others/error-1.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="d-none d-md-flex  p-h-40 justify-content-between">
-                    <span class="">© 2019 YoShop.YJ</span>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a class="text-dark text-link" href="/account/login">Вход</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-dark text-link" href="/index">Главни страница</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <style>
+      *{transition: all 0.6s;}
+      html {height: 100%;}
+      body{font-family: 'Lato', sans-serif;color: #888;margin: 0;}
+      #main{display: table;width: 100%;height: 100vh;text-align: center;}
+      .fof{display: table-cell;vertical-align: middle;}
+      .fof h1{font-size: 50px;margin-bottom: 5px;display: inline-block;padding-right: 12px;animation: type .5s alternate infinite;}
+      .fof p{margin: 0;color: #66666694;}
+      @keyframes type{from{box-shadow: inset -3px 0px 0px #888;}to{box-shadow: inset -3px 0px 0px transparent;}}
+    </style>
+    <div id="main">
+          <div class="fof">
+                <h1>Error <?=$code?></h1>
+                <p><?=$text?></p>
+          </div>
     </div>
-
-    
-    <!-- Core Vendors JS -->
-    <script src="/assets/js/vendors.min.js"></script>
-
-    <!-- page js -->
-
-    <!-- Core JS -->
-    <script src="/assets/js/app.min.js"></script>
-
 </body>
-
 </html>

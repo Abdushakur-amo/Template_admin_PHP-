@@ -74,4 +74,58 @@
 			];
 			$this->view->render('Групповой Чат', $vars);
 		}// End Chat
+		# Start Products ----------------------------------------------------------------
+		public function productsAction(){
+			$array = $this->MSelect->select_post();
+
+			$vars = [
+				'posts' => $array,
+			];
+			$this->view->render('Все продукти компания', $vars);
+		}
+		# Start Add_products ----------------------------------------------------------------
+		public function add_productsAction(){
+			// unset($_SESSION['img_count']);
+			// unset($_SESSION['info_images_upload']);
+			if(!empty($_POST)){
+
+				$idT = $this->model->addTovar($_POST);
+				if($idT){
+					if(isset($_SESSION['img_count'])){
+						$i = -1;
+						$Root = $_SERVER['DOCUMENT_ROOT'];
+						mkdir('files/tovar/'.date('m-Y'));
+						foreach ($_SESSION['info_images_upload'] as $name_jpg) {
+							$i++;
+							rename($Root.'/files/tovar/'.$name_jpg, $Root.'/files/tovar/'.date('m-Y').'/'.$idT.'_'.$i.'.jpg');
+						}
+						unset($_SESSION['img_count']);
+						unset($_SESSION['info_images_upload']);
+					}
+					$this->view->message_ajax('Выполнено', 'Status OK', 'success');
+				}
+			}
+			if( !empty($_FILES) ){
+				$this->model->upload_images($_FILES["file"]["tmp_name"], $_SESSION['authorize']['id']);
+			}
+			$this->view->render('Добавить товар');
+		}
+		# Start Single_poduct ----------------------------------------------------------------
+		public function single_poductAction(){
+
+		}
+		# Start Categories ----------------------------------------------------------------
+		public function categoriesAction(){
+			$this->view->render('categories Чат');
+		}
+		# Start Add_working ----------------------------------------------------------------
+		public function add_workingAction(){
+			$this->view->render('Добавить работы');
+		}
+		# Start Add_working ----------------------------------------------------------------
+		public function workingsAction(){
+			$this->view->render('Все наш работы');
+		}
+
+
 } //End class

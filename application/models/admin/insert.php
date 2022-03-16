@@ -9,7 +9,6 @@
 			# Работа с баз данных
 			$this->db = new Db;
 		}
-
 		public function AddMessageChat($message) {
 			$params = [
 				'id'  		=> null,
@@ -23,5 +22,4 @@
 			$this->db->query('INSERT INTO chat VALUES (:id, :id_user, :admin, :answer, :my_like, :message, :date)', $params);
 			return $this->db->lastInsertId();
 		}
-
 	} // End Class

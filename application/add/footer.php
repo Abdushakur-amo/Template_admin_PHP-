@@ -14,6 +14,16 @@
 <script src="/assets/js/ajax.js"></script>
 <script src="/assets/js/sweetalert.min.js"></script>
 <!-- Plugins JS start-->
+<script type="text/javascript" src="/assets/js/jquery.accordion.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
+<script>
+        $(document).ready(function(){
+            $(".category-tovar").dcAccordion({
+                showCount : true,
+                // classArrow   : 'anticon anticon-caret-down',
+            });
+        });
+</script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="/assets/js/script.js"></script>

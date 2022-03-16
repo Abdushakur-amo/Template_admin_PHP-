@@ -9,9 +9,6 @@
 			# Работа с баз данных
 			$this->db = new Db;
 		}
-
-		
-
 		public function AddDialog($id_send, $id_reci) {
 			$params = [
 				'id' 		=> null,
@@ -23,7 +20,6 @@
 			$this->db->query('INSERT INTO dialog VALUES(:id, :sender, :recipient, :status,  :date)', $params);
 			return $this->db->lastInsertId();
 		}
-
 		public function SendMessageAdd($message, $id_dialog) {
 			$params = [
 				'id' 		=> null,
@@ -37,5 +33,4 @@
 			$this->db->query('INSERT INTO message VALUES(:id, :message, :id_dialog, :id_user, :status,  :time, :date)', $params);
 			return $this->db->lastInsertId();
 		}
-
 	} // End Class

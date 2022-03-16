@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 06 2022 г., 14:53
+-- Время создания: Мар 16 2022 г., 19:29
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.8
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- База данных: `ddstdt`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int NOT NULL,
+  `title` tinytext NOT NULL,
+  `parent` int NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `title`, `parent`, `date`) VALUES
+(1, 'Общие', 0, '2022-03-08 14:04:50'),
+(2, 'Другие', 0, '2022-03-08 14:06:07');
 
 -- --------------------------------------------------------
 
@@ -56,7 +77,6 @@ INSERT INTO `chat` (`id`, `id_user`, `admin`, `answer`, `my_like`, `message`, `d
 (45, 9, 0, 0, 0, 'вапваа', '2022-03-05 19:37:31'),
 (34, 9, 0, 0, 0, 'вапвапварвар', '2022-03-05 19:36:40'),
 (35, 9, 0, 0, 0, 'вапвапва', '2022-03-05 19:36:48'),
-(30, 9, 0, 0, 0, 'приветик', '2022-03-05 19:31:53'),
 (31, 9, 0, 0, 0, 'dfsf', '2022-03-05 19:36:28'),
 (32, 9, 0, 0, 0, 'вапвапа', '2022-03-05 19:36:31'),
 (33, 9, 0, 0, 0, 'чапваавр', '2022-03-05 19:36:35'),
@@ -129,7 +149,30 @@ CREATE TABLE `online` (
 --
 
 INSERT INTO `online` (`id`, `id_user`, `ip`, `date`) VALUES
-(12, 9, '127.0.0.1', '2022-03-06 14:51:52');
+(12, 9, '127.0.0.1', '2022-03-12 17:41:01');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `products`
+--
+
+CREATE TABLE `products` (
+  `id` int NOT NULL,
+  `title` tinytext NOT NULL,
+  `summa` float NOT NULL,
+  `parent` int NOT NULL,
+  `text` text NOT NULL,
+  `up_date` datetime NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `products`
+--
+
+INSERT INTO `products` (`id`, `title`, `summa`, `parent`, `text`, `up_date`, `date`) VALUES
+(1, 'Ноутбук Asus X543MA‐GQ552T (90NB0IR7-M25920) ', 3000, 1, 'Intel Celeron N4000/15.6\"/1366x768/4 GB/1000 GB', '2022-03-09 16:35:14', '2022-03-09 16:35:14');
 
 -- --------------------------------------------------------
 
@@ -158,7 +201,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `sex`, `id_friend`, `city`, `password`, `phone`, `email`, `id_code`, `online`, `date`, `text`) VALUES
 (10, 'Манижа', 2, 0, '0', '4a7d1ed414474e4033ac29ccb8653d9b', '+992985336005', 'abdushakur97@mail.ru', '120000102063', '2022-02-27 00:10:23', '2022-02-26 23:46:42', '...'),
-(9, 'Абдушакур Савзаев+', 1, 0, '0', '81dc9bdb52d04dc20036dbd8313ed055', '+992985060681', 'abdushakur97@mail.ru', '120000915696', '2022-03-06 14:51:52', '2022-02-26 22:54:04', '123142432'),
+(9, 'Абдушакур Савзаев+', 1, 0, '0', '81dc9bdb52d04dc20036dbd8313ed055', '+992985060681', 'abdushakur97@mail.ru', '120000915696', '2022-03-12 17:41:01', '2022-02-26 22:54:04', '123142432'),
 (11, 'Abdushukur Savzaev', 2, 0, '0', 'b4b147bc522828731f1a016bfa72c073', '+992985060683', 'abdushakur97@mail.ru', '120000116465', '2022-02-27 21:41:27', '2022-02-27 21:41:02', '...'),
 (12, 'Jamoliddin Сайдов', 1, 0, '0', 'e10adc3949ba59abbe56e057f20f883e', '+992985060690', 'Abc@mail.ru', '120000129806', '2022-02-27 22:13:51', '2022-02-27 21:47:36', '...');
 
@@ -190,6 +233,12 @@ INSERT INTO `wallet` (`id`, `id_user`, `summa`, `date`) VALUES
 --
 
 --
+-- Индексы таблицы `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `chat`
 --
 ALTER TABLE `chat`
@@ -214,6 +263,12 @@ ALTER TABLE `online`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `users`
 --
 ALTER TABLE `users`
@@ -228,6 +283,12 @@ ALTER TABLE `wallet`
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
+
+--
+-- AUTO_INCREMENT для таблицы `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `chat`
@@ -252,6 +313,12 @@ ALTER TABLE `message`
 --
 ALTER TABLE `online`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT для таблицы `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

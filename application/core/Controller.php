@@ -1,25 +1,18 @@
 <?php
-
 namespace application\core;
-
 use application\core\View;
-
 abstract class Controller {
-
 	public $route;
 	public $view;
 	public $acl;
 	public $MSelect;
 	public $MInsert;
 	public $MUpdate;
-
 	public function __construct($route) {
-		// demo($_SESSION);
-
 		$this->route = $route;
-		if (!$this->checkAcl() and !isset($_COOKIE['User']) ) {
+		if (!$this->checkAcl()) {
 			if ( !isset($_COOKIE['User']) and !isset($_SESSION['authorize']['id']) ) exit(header('Location: /account/login'));
-			View::errorCode(403);
+			View::errorCode(403, 'У Вас нет прав для доступа к этой странице! <br> <br> <b>'.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REDIRECT_URL'].'</b>');
 		}
 
 		$this->view = new View($route);
@@ -32,9 +25,6 @@ abstract class Controller {
 		if ( isset($_COOKIE['User']) and !isset($_SESSION['authorize']['id']) ) $this->Save_Cooke();
 		# NotificationAll
 		$_SESSION['chat_users'] = $this->model->SelectChat(0, 3);
-		# Информатсия о Баланс
-		$_SESSION['BalansMenu'] = $this->balans();
-
 		if(isset($_SESSION['authorize']['id'])){
 			if($_SERVER["REQUEST_URI"] == '/') header('location: /index');
 			# User Online
@@ -42,15 +32,9 @@ abstract class Controller {
 			$_SESSION['User_online'] = $this->UserOnline($_SESSION['authorize']['id']);
 			# SMS Message
 			$_SESSION['NewMessage'] = $this->NewMessage($_SESSION['authorize']['id']);
-
 		}
-
 	}
-	# End __Construct
-
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
-		# User Online
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
+	# - .- .-  User Online  .- .- .- .;
 	public function UserOnline($id_user){
 		$Info = $this->model->SelectorUserOnlain($id_user, $_SERVER['SERVER_ADDR']);
 		$Online = $this->model->SelectUserProfils($id_user);
@@ -59,10 +43,7 @@ abstract class Controller {
 		if( !empty($Info) ) return $html;
 		else return $NotHtml;
 	}
-
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
-		# Выключатель дополнители класс Models: Select / Insert / UpDate
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
+	# - .- .-  Выключатель дополнители класс Models: Select / Insert / UpDate  .- .;
 	public function loadModel($name) {
 		$path = 'application\models\\'.ucfirst($name);
 		if (class_exists($path)) return new $path($this->route);
@@ -88,40 +69,22 @@ abstract class Controller {
 			return new $NameClass;
 		else demo($NameClass.' Не сушествует class: /application/models/'.$route["controller"].'/'.$NameClass);
 	}
-
-
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
-		# New Message
-	# - .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .- .;
+	# - .- .- .- .- .- 	# New Message .- .- .- .- .- .- .;
 	public function NewMessage($id_user) {
 		$return = $this->model->SelectDialogNotifi($id_user, 0);
 		return $return[0]["COUNT(`id`)"];
 	}
-
 	public function ValidateSumma($Summa) {
 		$Summa = floatval($Summa);
 		if( $Summa <= 0 ) return false;
 		return $Summa;
 	}
-
-
 	public function Save_Cooke() {
 		$Row = $this->model->SelectorAll('users', 'id', $_COOKIE['User']);
 		foreach ($Row[0] as $key => $value) $_SESSION['authorize'][$key] = $value;
+		$_SESSION['admin'] = true;
 		$this->view->redirect('/admin/index');
 	}
-
-
-
-	public function NotifiSenderPay() {
-		if(isset($_SESSION['authorize']['id'])){
-			$vars = $this->model->SelectorAll('tr_transactions_history', 'id_user', $_SESSION['authorize']['id'], 'status', 0);
-			return count($vars);
-		}
-		return false;
-	}
-
-	//Барои доступ ба саҳифаҳо
 	public function checkAcl() {
 		$this->acl = require 'application/acl/'.$this->route['controller'].'.php';
 		if ($this->isAcl('all')) return true;
@@ -130,23 +93,14 @@ abstract class Controller {
 		elseif (isset($_SESSION['admin']) and $this->isAcl('admin')) return true;
 		return false;
 	}
-
+	public function isAcl($key) {
+		return in_array($this->route['action'], $this->acl[$key]);
+	}
 	public function my_json_encode($array) {
 		if (!$array) $array = 'null_search';
 		return json_encode($array, JSON_UNESCAPED_UNICODE);
 	}
-
-
-	public function balans() {
-		if ( isset($_SESSION['authorize']['id']) )
-			$result = $this->model->SelectorAll('Wallet', 'id_user', $_SESSION['authorize']['id']);
-			if( !empty($result) ) return $result[0]['summa'];
-		else return 0;
-	}
-
-	################################
-			// SEND SMS
-	################################
+	#  .- .-  SEND SMS  .- .-
 	public function Send_SMS($phone_number, $message='Test message', $id=true, $block=true) {
 		if( $block ){
 			$configSMS = require 'application/config/set_sms.php';
@@ -169,12 +123,4 @@ abstract class Controller {
 		}
 		else return false;
 	}
-	public function isAcl($key) {
-		return in_array($this->route['action'], $this->acl[$key]);
-	}
-
-
-
-
-
 } // End Class

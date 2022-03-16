@@ -11,7 +11,6 @@
                         </div>
                         <div class="text-center text-sm-left m-v-15 p-l-30">
                             <h2 class="m-b-5"><?=$vars['User']['name']?></h2>
-                            <p class="text-opacity font-size-13"># <?=format_cart($vars['User']['id_code'])?></p>
                             <p><?=$vars['Online']?></p>
                             <p class="text-dark m-b-20"><?=jinsUserText($vars['User']['sex'])?></p>
                             <h2><span class="badge badge-pill badge-default"><?=$vars['Wallet']?> TJS</span></h2>

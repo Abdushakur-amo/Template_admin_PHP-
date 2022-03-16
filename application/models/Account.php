@@ -1,9 +1,6 @@
 <?php
-
 namespace application\models;
-
 use application\core\Model;
-
 class Account extends Model {
 	public function loginValidate($post) {
 		$params = ['phone' => $post['phone'],];
@@ -19,7 +16,6 @@ class Account extends Model {
 		$this->db->query("UPDATE `tr_user_pay` SET  summa = :summa WHERE id_user = $id_user", $params);
 		return true;
 	}
-	
 	public function addUsers($post, $frend=0) {
 		$params = [
 			'id' => null,
@@ -48,5 +44,4 @@ class Account extends Model {
 		$this->db->query('INSERT INTO wallet VALUES(:id, :id_user, :summa, :date)', $params);
 		return $this->db->lastInsertId();
 	}
-
 } # End class

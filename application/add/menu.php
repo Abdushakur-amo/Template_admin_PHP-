@@ -8,13 +8,29 @@
         </li>
         <li class="sidebar-main-title">
           <div>
-            <h6>Все каталоий</h6>
+            <h6>Все каталог</h6>
           </div>
         </li>
-        <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="user"></i><span>Ползовател INFO</span></a>
+        <li class="dropdown">
+          <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="user"></i><span>Ползовател INFO</span></a>
           <ul class="nav-submenu menu-content">
-            <li><a href="/admin/setting/<?=$_SESSION['authorize']['id']?>">Настройка</a></li>
             <li><a href="/admin/profil/<?=$_SESSION['authorize']['id']?>">Профиль</a></li>
+            <li><a href="/admin/setting/<?=$_SESSION['authorize']['id']?>">Настройка</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="layers"></i><span>Товарная платформа</span></a>
+          <ul class="nav-submenu menu-content">
+            <li><a href="/products">Все товар</a></li>
+            <li><a href="/add/products">Добавить +</a></li>
+            <li><a href="/categories/1">Категория</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="briefcase"></i><span>Наш работа</span></a>
+          <ul class="nav-submenu menu-content">
+            <li><a href="/workings">Все наш работы</a></li>
+            <li><a href="/add/working">Добавить работы +</a></li>
           </ul>
         </li>
       </ul>

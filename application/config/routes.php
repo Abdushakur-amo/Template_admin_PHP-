@@ -11,7 +11,6 @@ return [
 		'action' => 'search',
 	],
 
-
 	# AdminController
 	'admin/index' => [
 		'controller' => 'admin',
@@ -29,6 +28,33 @@ return [
 		'controller' => 'admin',
 		'action' => 'chat',
 	],
+	'products' => [
+		'controller' => 'admin',
+		'action' => 'products',
+	],
+	'add/products' => [
+		'controller' => 'admin',
+		'action' => 'add_products',
+	],
+	'single/product/{id:\d+}' => [
+		'controller' => 'admin',
+		'action' => 'single_poduct',
+	],
+	'categories/{id:\d+}' => [
+		'controller' => 'admin',
+		'action' => 'categories',
+	],
+	'workings' => [
+		'controller' => 'admin',
+		'action' => 'workings',
+	],
+	'add/working' => [
+		'controller' => 'admin',
+		'action' => 'add_working',
+	],
+
+
+
 
 
 	# AccountController

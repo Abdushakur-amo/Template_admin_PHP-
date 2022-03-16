@@ -30,5 +30,9 @@
 				return ( isset($result['0'][$val]) ) ? floatval($result['0'][$val]) : false;
 			}
 		}
-		
+		public function select_post($count=false) {
+			if($count) return $this->db->row(" SELECT COUNT(`id`) FROM `products`");
+			return $this->db->row("SELECT * FROM products ");
+		}
+
 	} // End Class

@@ -13,14 +13,12 @@ $(document).ready(function() {
 				$('.box_load').addClass('active');
 			},
 			success: function(result) {
-				// Loader O
 				$('.box_load').removeClass('active');
 				console.log(result);
 				json = jQuery.parseJSON(result);
 				if(json.message && json.locat_function=='default') {
 					swal({ title: json.title, text: json.message, icon: json.icon, buttons: json.button });
-					// Сброс все форма
-					if( json.reset) $(json.reset).val(" ");
+					event.target.reset();
 				}
 				else if(json.url){
 					if ( json.time ) {
@@ -32,10 +30,6 @@ $(document).ready(function() {
 						}, Secund);
 					}
 					else window.location.href = json.url;
-				}
-				else {
-					swal('Ягон запрос коркард нашуд! form.js');
-					$('.form-control').val(' ');
 				}
 			},
 		});
